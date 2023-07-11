@@ -1,22 +1,71 @@
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
+import { Container, Row, Col, Button, Stack } from 'react-bootstrap'
 import { useTranslate } from './hooks/useTranslate'
+import { AUTO_LANGUAGE } from './constants'
+import { ArrowIcon } from './components/Icons'
+import { LanguageSelector } from './components/LanguageSelector'
+import { SectionType } from './types.d'
+import { TextArea } from './components/TextArea'
 
 const App = () => {
-  const { fromLanguage, setFromLanguage } = useTranslate()
+  const {
+    fromLanguage,
+    toLanguage,
+    fromText,
+    result,
+    setFromLanguage,
+    setToLanguage,
+    setFromText,
+    setResult,
+    interchangeLanguages
+  } = useTranslate()
 
   return (
-    <div className="App">
+    <Container fluid>
       <h1>Google Translate</h1>
-      <button
-        onClick={() => {
-          setFromLanguage('es')
-        }}
-      >
-        Cambiar a Español
-      </button>
-      {fromLanguage}
-    </div>
+      <Row>
+        <Col>
+          <Stack gap={2}>
+            <LanguageSelector
+              type={SectionType.From}
+              value={fromLanguage}
+              onChange={setFromLanguage}
+            />
+            <TextArea
+              type={SectionType.From}
+              value={fromText}
+              onChange={setFromText}
+            />
+          </Stack>
+        </Col>
+
+        <Col xs="auto">
+          <Button
+            variant="link"
+            disabled={fromLanguage === AUTO_LANGUAGE}
+            onClick={interchangeLanguages}
+          >
+            <ArrowIcon />
+          </Button>
+        </Col>
+
+        <Col>
+          <Stack gap={2}>
+            <LanguageSelector
+              type={SectionType.To}
+              value={toLanguage}
+              onChange={setToLanguage}
+            />
+            <TextArea
+              type={SectionType.To}
+              value={result}
+              onChange={setResult}
+            />
+          </Stack>
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
