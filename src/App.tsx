@@ -14,6 +14,7 @@ const App = () => {
     toLanguage,
     fromText,
     result,
+    loading,
     setFromLanguage,
     setToLanguage,
     setFromText,
@@ -61,6 +62,7 @@ const App = () => {
               type={SectionType.To}
               value={result}
               onChange={setResult}
+              loading={loading}
             />
           </Stack>
         </Col>
